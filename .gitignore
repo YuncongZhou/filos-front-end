@@ -82,3 +82,6 @@ typings/
 
 # Distribution
 dist/
+
+# Auth credentials
+src/Auth/auth0-variables.ts
