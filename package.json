@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@types/auth0-js": "^8.11.7",
+    "@types/react-router-dom": "^4.3.1",
     "antd": "^3.10.8",
     "auth0-js": "^9.8.1",
     "react": "^16.6.1",
