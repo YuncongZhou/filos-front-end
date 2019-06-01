@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import loading from './loading.svg';
 
 class Callback extends Component {
-  render() {
-    const style = {
+  public render() {
+    const style: React.CSSProperties = {
       position: 'absolute',
       display: 'flex',
       justifyContent: 'center',

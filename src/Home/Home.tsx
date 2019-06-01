@@ -1,11 +1,13 @@
-import React, { Component } from 'react';
 import { Button } from '@material-ui/core';
+import React, { Component } from 'react';
 
 class Home extends Component {
-  login() {
+  public props: any;
+  public login() {
     this.props.auth.login();
   }
-  render() {
+  // tslint:disable
+  public render() {
     const { isAuthenticated } = this.props.auth;
     return (
       <div className="container">

@@ -1,14 +1,14 @@
-import * as React from 'react';
-import { Route, Router } from 'react-router-dom';
 import App from './App';
-import Home from './Home/Home';
-import Callback from './Callback/Callback';
 import Auth from './Auth/Auth';
+import Callback from './Callback/Callback';
 import history from './history';
+import Home from './Home/Home';
+// tslint:disable
+import React from 'react';
+import { Route, Router } from 'react-router-dom';
 
 const auth = new Auth();
-
-const handleAuthentication = ({ location }) => {
+const handleAuthentication = ({ location }: any) => {
   if (/access_token|id_token|error/.test(location.hash)) {
     auth.handleAuthentication();
   }

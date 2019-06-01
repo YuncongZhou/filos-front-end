@@ -1,11 +1,12 @@
+import { AppBar, Button, Toolbar, Typography } from '@material-ui/core';
+// import AppBar from '@material-ui/core/AppBar';
+// import Button from '@material-ui/core/Button';
+// import Toolbar from '@material-ui/core/Toolbar';
+// import Typography from '@material-ui/core/Typography';
 import React, { Component } from 'react';
-// import { makeStyles } from '@material-ui/core/styles'
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-// import { Navbar, Button } from 'react-bootstrap';
 import './App.css';
+// import { makeStyles } from '@material-ui/core/styles'
+// import { Navbar, Button } from 'react-bootstrap';
 
 // const useStyles = makeStyles(theme => ({
 //   root: {
@@ -20,19 +21,21 @@ import './App.css';
 // }))
 
 class App extends Component {
-  goTo(route) {
+  public props: any;
+
+  public goTo(route: string) {
     this.props.history.replace(`/${route}`);
   }
 
-  login() {
+  public login() {
     this.props.auth.login();
   }
 
-  logout() {
+  public logout() {
     this.props.auth.logout();
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     const { renewSession } = this.props.auth;
 
     if (localStorage.getItem('isLoggedIn') === 'true') {
@@ -40,16 +43,15 @@ class App extends Component {
     }
   }
 
-  render() {
+  // tslint:disable
+  public render() {
     const { isAuthenticated } = this.props.auth;
     // const classes = useStyles()
     return (
       <div>
         <AppBar position="static">
           <Toolbar>
-            {/* <AppBar.Brand>
-              <a href='#'>Auth0 - React</a>
-            </AppBar.Brand> */}
+            {/* <a href='#'>Auth0 - React</a> */}
             <Typography variant="h6">
               {' '}
               {/*className={classes.title}>*/}

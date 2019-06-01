@@ -1,13 +1,13 @@
-import history from '../history';
 import auth0 from 'auth0-js';
+import history from '../history';
 import { AUTH_CONFIG } from './auth0-variables';
 
 export default class Auth {
-  accessToken: string;
-  idToken: string;
-  expiresAt: number;
+  private accessToken: string;
+  private idToken: string;
+  private expiresAt: number;
 
-  auth0 = new auth0.WebAuth({
+  private auth0 = new auth0.WebAuth({
     domain: AUTH_CONFIG.domain,
     clientID: AUTH_CONFIG.clientId,
     redirectUri: AUTH_CONFIG.callbackUrl,
@@ -25,37 +25,38 @@ export default class Auth {
     this.renewSession = this.renewSession.bind(this);
   }
 
-  login() {
+  public login() {
     this.auth0.authorize();
   }
 
-  handleAuthentication() {
+  public handleAuthentication() {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
       } else if (err) {
         history.replace('/home');
+        // tslint:disable-next-line
         console.log(err);
         alert(`Error: ${err.error}. Check the console for further details.`);
       }
     });
   }
 
-  getAccessToken() {
+  public getAccessToken() {
     return this.accessToken;
   }
 
-  getIdToken() {
+  public getIdToken() {
     return this.idToken;
   }
 
-  setSession(authResult: auth0.Auth0DecodedHash) {
+  public setSession(authResult: auth0.Auth0DecodedHash) {
     // Set isLoggedIn flag in localStorage
     localStorage.setItem('isLoggedIn', 'true');
 
     // Set the time that the access token will expire at
     if (authResult.expiresIn && authResult.accessToken && authResult.idToken) {
-      let expiresAt = authResult.expiresIn * 1000 + new Date().getTime();
+      const expiresAt = authResult.expiresIn * 1000 + new Date().getTime();
       this.accessToken = authResult.accessToken;
       this.idToken = authResult.idToken;
       this.expiresAt = expiresAt;
@@ -65,19 +66,20 @@ export default class Auth {
     }
   }
 
-  renewSession() {
+  public renewSession() {
     this.auth0.checkSession({}, (err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
       } else if (err) {
         this.logout();
+        // tslint:disable-next-line
         console.log(err);
         alert(`Could not get a new token (${err.error}: ${err.error_description}).`);
       }
     });
   }
 
-  logout() {
+  public logout() {
     // Remove tokens and expiry time
     this.accessToken = '';
     this.idToken = '';
@@ -94,10 +96,10 @@ export default class Auth {
     history.replace('/home');
   }
 
-  isAuthenticated() {
+  public isAuthenticated() {
     // Check whether the current time is past the
     // access token's expiry time
-    let expiresAt = this.expiresAt;
+    const expiresAt = this.expiresAt;
     return new Date().getTime() < expiresAt;
   }
 }
