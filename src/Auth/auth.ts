@@ -15,7 +15,7 @@ export default class Auth {
     scope: 'openid',
   });
 
-  constructor() {
+  public constructor() {
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     this.handleAuthentication = this.handleAuthentication.bind(this);
